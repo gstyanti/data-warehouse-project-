@@ -9,9 +9,6 @@ Script Purpose:
 ===============================================================================
 */
 
---start Transaction
-begin;
-
 -- Create SQL DDL scripst for all Table CSV files in the CRM and ERP systems
 drop table if exists silver.crm_cust_info;
 
@@ -29,9 +26,10 @@ dwh_create_date timestamp DEFAULT now()
 drop table if exists silver.crm_prd_info;
 create table silver.crm_prd_info (
 prd_id int,
+cat_id varchar(50),
 prd_key varchar (50),
 prd_nm varchar (50),
-prd_cost varchar (50),
+prd_cost int,
 prd_line varchar (50),
 prd_start_dt date,
 prd_end_dt date,
@@ -43,9 +41,9 @@ create table silver.crm_sales_details (
 sls_ord_num varchar (50),
 sls_prd_key varchar (50),
 sls_cust_id int,
-sls_order_dt int,
-sls_ship_dt int,
-sls_due_dt int,
+sls_order_dt date,
+sls_ship_dt date,
+sls_due_dt date,
 sls_sales int,
 sls_quantity int,
 sls_price int,
@@ -78,3 +76,5 @@ dwh_create_date timestamp DEFAULT now()
 
 commit; --commit jika semua sukses
 -- or rollback; jika ada error
+
+select * from silver.crm_cust_info cci ;
